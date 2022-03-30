@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace SACS_Server.Data.Entities
 {
+    [Index(nameof(UrlId), IsUnique = true, Name = "IX_Employees_UrlId")]
     public class Employee : IEntity
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -25,7 +27,8 @@ namespace SACS_Server.Data.Entities
 
         [StringLength(100)]
         public string Rank { get; set; }
-
+        [Required]
+        public string UrlId { get; set; }
         public virtual ICollection<Department> AcademicDepartment { get; set; }
     }
 }

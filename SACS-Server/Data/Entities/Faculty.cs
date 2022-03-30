@@ -12,7 +12,8 @@ namespace SACS_Server.Data.Entities
 
         [StringLength(100)]
         public string Abbrev { get; set; }
-
+      
+        [Required]
         public string Name { get; set; }
     }
 }

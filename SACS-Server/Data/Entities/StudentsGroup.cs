@@ -14,7 +14,8 @@ namespace SACS_Server.Data.Entities
 
         [Required]
         public string Number { get; set; }
-
+        
+        [Required]
         public virtual Speciality Speciality { get; set; }
     }
 }
