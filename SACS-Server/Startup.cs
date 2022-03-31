@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using SACS_Server.Data;
+using SACS_Server.Authentification;
 
 namespace SACS_Server
 {
@@ -21,6 +22,7 @@ namespace SACS_Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            services.AddDbContext<AuthentificationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthDB")));
             /*options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("LocalDB")));*/      
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -36,6 +38,8 @@ namespace SACS_Server
             {
                 var appDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
                 appDbContext.Database.Migrate();
+                var AuthDbContext = scope.ServiceProvider.GetService<AuthentificationDbContext>();
+                AuthDbContext.Database.Migrate();
             }
             if (env.IsDevelopment())
             {
