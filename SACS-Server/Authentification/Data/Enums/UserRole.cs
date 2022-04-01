@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SACS_Server.Data.Enums
+namespace SACS_Server.Authentification.Data.Enums
 {
     public enum UserRole
     {
         Student,
         Employee,
-        Admin
+        Admin,
+        SuperAdmin
     }
     /*public enum UserRole
     {

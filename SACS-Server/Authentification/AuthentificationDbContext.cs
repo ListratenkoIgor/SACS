@@ -9,5 +9,11 @@ namespace SACS_Server.Authentification
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            AuthentificationDbSeeder.SeedDatabase(builder);
+        }
     }
 }

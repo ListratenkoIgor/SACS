@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using SACS_Server.Data;
 using SACS_Server.Authentification;
+using Microsoft.AspNetCore.Identity;
 
 namespace SACS_Server
 {
@@ -21,9 +22,17 @@ namespace SACS_Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("LocalDB")));
-            services.AddDbContext<AuthentificationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AuthDB")));
-            /*options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("LocalDB")));*/      
+            //services.AddDbContextFactory<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            //services.AddDbContextFactory<AuthentificationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("AuthDB")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("LocalDB")));
+            services.AddDbContext<AuthentificationDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("AuthDB")));
+            services.AddIdentity<IdentityUser, IdentityRole>(opts => {
+                opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
+                opts.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
+                opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
+                opts.Password.RequireDigit = false; // требуются ли цифры
+            }).AddEntityFrameworkStores<AuthentificationDbContext>();
+            
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddDatabaseDeveloperPageExceptionFilter();
@@ -37,9 +46,9 @@ namespace SACS_Server
             using (var scope = serviceScopeFactory.CreateScope())
             {
                 var appDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-                appDbContext.Database.Migrate();
+                //appDbContext.Database.Migrate();
                 var AuthDbContext = scope.ServiceProvider.GetService<AuthentificationDbContext>();
-                AuthDbContext.Database.Migrate();
+                //AuthDbContext.Database.Migrate();
             }
             if (env.IsDevelopment())
             {

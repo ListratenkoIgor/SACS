@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SACS-Server", "SACS-Server.csproj", "{8D1FA440-84C5-4080-AA5D-4B3222360D01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SACS-Server", "SACS-Server.csproj", "{8D1FA440-84C5-4080-AA5D-4B3222360D01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
